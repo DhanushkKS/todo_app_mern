@@ -2,12 +2,12 @@ import useTodoList from "./hooks/useTodoList.ts";
 
 const TodoList = () => {
   const { tasks } = useTodoList();
-
+    console.log("Tasks", tasks.task);
   return (
     <>
       <div className="flex flex-col gap-y-2 bg-green-200">
-        {tasks.map((task) => (
-          <h1>{task.task}</h1>
+        {tasks?.map((task) => (
+          <h1>{task?.task}</h1>
         ))}
       </div>
     </>
