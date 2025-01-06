@@ -4,10 +4,9 @@ import { store } from "./store";
 import AppRoutes from "./routes/AppRoutes.tsx";
 
 export default function App() {
-  
   return (
     <>
-     <Provider store={store}>
+      <Provider store={store}>
         <AppRoutes />
       </Provider>
     </>

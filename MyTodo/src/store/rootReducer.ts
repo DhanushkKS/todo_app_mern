@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import {todoApi} from "../redux/Todo/api.ts";
+import { todoApi } from "../redux/Todo/api.ts";
 
 export const rootReducer = combineReducers({
   //user: userReducer,
