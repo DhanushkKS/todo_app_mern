@@ -1,18 +1,21 @@
 import { useFormik } from "formik";
+import {useCreateTaskMutation} from "../../../../redux/Todo/api.ts";
+import {Task} from "../../../../redux/Todo/types.ts";
 
 const useCreateTodoList = () => {
-  const tasks: string[] = [];
+  const [addTask,{isLoading}] = useCreateTaskMutation();
+  const addTaskOnSubmit = async (values:Task) => {
+    await addTask(values)
+  }
   const formik = useFormik({
     initialValues: {
       task: "",
     },
-    onSubmit: (values) => {
-      tasks.push(...tasks, values.task.toString());
-      console.log(tasks);
+    onSubmit:async (values) => {
+     await addTaskOnSubmit(values)
     },
   });
-  console.log("outer", tasks);
   const { handleSubmit, handleChange } = formik;
-  return { handleSubmit, handleChange, tasks };
+  return { handleSubmit, handleChange,isLoading };
 };
 export default useCreateTodoList;
