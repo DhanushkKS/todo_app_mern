@@ -1,12 +1,13 @@
 import useTodoList from "./hooks/useTodoList.ts";
 import CreateTaskForm from "./components/CreateTaskForm.tsx";
+import Header from "./components/Header.tsx";
 
 const TodoList = () => {
   const { tasks, handleChange, handleSubmit, isLoading, errors, touched } =
     useTodoList();
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-300 to-blue-500 p-6 flex flex-col items-center">
-      <h1 className="text-4xl font-bold mt-4 mb-2">Todo App</h1>
+      <Header title="Todo App" />
       <CreateTaskForm
         onSubmit={handleSubmit}
         onChange={handleChange}
