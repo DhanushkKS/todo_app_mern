@@ -2,15 +2,19 @@ import useTodoList from "./hooks/useTodoList.ts";
 import CreateTaskForm from "./components/CreateTaskForm.tsx";
 
 const TodoList = () => {
-  const { tasks, handleChange, handleSubmit, isLoading } = useTodoList();
+  const { tasks, handleChange, handleSubmit, isLoading, errors, touched } =
+    useTodoList();
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-300 to-blue-500 p-6 flex flex-col items-center">
+      <h1 className="text-4xl font-bold mt-4 mb-2">Todo App</h1>
       <CreateTaskForm
         onSubmit={handleSubmit}
         onChange={handleChange}
         isLoading={isLoading}
+        errors={errors}
+        touched={touched}
       />
-      <div className="mt-8 w-full max-w-md bg-white p-4 rounded-lg shadow-lg">
+      <div className="mt-0 w-full max-w-md bg-white p-4 rounded-lg shadow-lg">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Your Tasks</h2>
         <div className="flex flex-col gap-y-2">
           {tasks && tasks.length > 0 ? (

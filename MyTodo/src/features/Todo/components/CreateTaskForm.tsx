@@ -4,52 +4,59 @@ type CreateTaskFormProps = {
   onSubmit: (e?: FormEvent<HTMLFormElement>) => void;
   onChange: (e: ChangeEvent<any>) => void;
   isLoading: boolean;
+  errors: { [key: string]: string };
+  touched: { [key: string]: boolean };
 };
+
 const CreateTaskForm = ({
   isLoading,
   onChange,
   onSubmit,
+  errors,
+  touched,
 }: CreateTaskFormProps) => {
+  const disabled: boolean = isLoading || !!(errors.task && touched.task);
+
   return (
-    <div className="flex items-center justify-center  bg-gradient-to-br from-blue-500 to-purple-600">
-      <form
-        onSubmit={onSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">
-          Create a New Task
-        </h2>
-        <div className="mb-4">
-          <label
-            htmlFor="task"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Task Name
-          </label>
+    <div className="flex items-center justify-center min-h-24 bg-white px-10 my-2 rounded-lg">
+      <form onSubmit={onSubmit} className="flex items-center gap-4">
+        <div className="flex-1 relative">
           <input
             type="text"
             name="task"
             id="task"
             onChange={onChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-700"
-            placeholder="Enter your task..."
+            className={`relative w-full px-4 py-2 border rounded-lg outline-none text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+              ${
+                errors.task && touched.task
+                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                  : "border-gray-300"
+              }
+            `}
+            placeholder="New Todo"
           />
+          {errors.task && touched.task && (
+            <p className="absolute -bottom-6 left-0   text-red-500 text-sm mt-1">
+              {errors.task}
+            </p>
+          )}
         </div>
         <button
           type="submit"
-          disabled={isLoading}
-          className={`w-full py-2 px-4 rounded-lg text-white font-semibold 
+          disabled={disabled}
+          className={`px-6 py-2 rounded-lg text-white font-semibold 
             ${
-              isLoading
+              disabled
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
+                : "bg-green-500 hover:bg-green-600"
             }
           `}
         >
-          {isLoading ? "Creating..." : "Create Task"}
+          {isLoading ? "Creating..." : "Add Todo"}
         </button>
       </form>
     </div>
   );
 };
+
 export default CreateTaskForm;
