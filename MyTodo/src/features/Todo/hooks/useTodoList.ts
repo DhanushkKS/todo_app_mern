@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { validationSchema } from "../validationSchema.ts";
 
 const useTodoList = () => {
-  const { data } = useGetTasksQuery();
+  const { data, isLoading: tasksIsLoading } = useGetTasksQuery();
   const [addTask, { isLoading }] = useCreateTaskMutation();
   const addTaskOnSubmit = async (values: Task) => {
     await addTask(values);
@@ -24,6 +24,14 @@ const useTodoList = () => {
   const { handleSubmit, handleChange, errors, touched } = formik;
 
   const tasks = data?.tasks ?? [];
-  return { tasks, handleSubmit, handleChange, isLoading, errors, touched };
+  return {
+    tasks,
+    handleSubmit,
+    handleChange,
+    isLoading,
+    errors,
+    touched,
+    tasksIsLoading,
+  };
 };
 export default useTodoList;

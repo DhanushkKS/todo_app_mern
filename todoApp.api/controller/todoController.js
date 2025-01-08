@@ -21,7 +21,31 @@ const createTask = async (req, res) => {
     res.status(400).json({ error: "Failed to add the task" });
   }
 };
+
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "Task ID is required" });
+    }
+    const deletedTask = await Task.findByIdAndDelete(id);
+    if (!deletedTask) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    return res.status(200).json({
+      message: "Task deleted successfully",
+      task: deletedTask,
+    });
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    return res.status(500).json({
+      error: "An error occurred while deleting the task",
+    });
+  }
+};
+
 module.exports = {
   getAllTasks,
   createTask,
+  deleteTask,
 };
